@@ -2,14 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <script
-      crossorigin
-      src="https://unpkg.com/react@18/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-    ></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <title>구구단</title>
   </head>
@@ -18,6 +12,7 @@
 
     <script type="text/babel">
       class GuGuDan extends React.Component {
+
         constructor(props) {
           super(props);
           this.state = {
@@ -31,25 +26,31 @@
         onSubmit = (e) => {
           e.preventDefault();
           /* 이벤트가 없을 경우 기본 동작을 실행하지 않도록 지정*/
-          if (
-            parseInt(this.state.value) ===
-            this.state.first * this.state.second
-          ) {
-            this.setState({
-              result: this.state.value + " 정답!",
-              first: Math.ceil(Math.random() * 9),
-              second: Math.ceil(Math.random() * 9),
-              value: "",
-            });
-          } else {
+          if (parseInt(this.state.value) === this.state.first * this.state.second) {
+            this.setState((prevState) => {
+              return {
+                result: prevState.value + " 정답!",
+                first: Math.ceil(Math.random() * 9),
+                second: Math.ceil(Math.random() * 9),
+                value: "",
+              }});
+            this.input.focus();
+          } 
+          else {
             this.setState({
               result: "땡!",
               value: "",
             });
+            this.input.focus();
           }
         };
 
         onChange = (e) => this.setState({ value: e.target.value });
+
+        input; 
+
+        refFoucs = (c) => {this.input = c};
+
         render() {
           return (
             <div>
@@ -57,13 +58,9 @@
                 {this.state.first} 곱하기 {this.state.second} 는?
               </div>
               <form onSubmit={this.onSubmit}>
-                <input
-                  type="number"
-                  value={this.state.value}
-                  onChange={this.onChange}
-                />
+                <input ref={this.refFoucs} type="number" value={this.state.value} onChange={this.onChange}/>
                 {/* js 문법을 html 속성에 쓰고 싶을 때 방법 */}
-                <button>입력!</button>
+                <button >입력!</button>
               </form>
               <div>{this.state.result}</div>
             </div>
@@ -76,3 +73,4 @@
 </html>
 
 <!-- 완성! 내일은 여러가지 기능 추가해보고 다른게임 만들어보기 -->
+<!-- format, focus, ref, ...-->
