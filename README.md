@@ -116,3 +116,20 @@
 > entry, module, plugins, output
 
 ## 4일차
+
+## bable webpack (json) 기본적인 설정
+
+- "@babel/core": "^7.22.9"
+
+  > bable의 기본적인 것들
+
+- "@babel/preset-env": "^7.22.9"
+
+  > 브라우저에 맞게 최신문법을 옛날문법 지원
+
+- "@babel/preset-react": "^7.22.5"
+
+  > jsx, react 등 지원 가능
+
+- "bable-loader": "^0.0.1-security"
+  > bable 과 webpack 연결
