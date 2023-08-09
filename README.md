@@ -133,3 +133,7 @@
 
 - "bable-loader": "^0.0.1-security"
   > bable 과 webpack 연결
+
+## 5일차
+
+- webpack build 및 끝말잇기 game

@@ -1,10 +1,41 @@
 const React = require('react');
+const { useState } = require('react');
 
 const WordRelay = () => {
+  const [word, setWord] = useState('끝말잇기');
+  const [value, setValue] = useState('');
+  const [result, setResult] = useState('');
+
+  const answer = () => {
+    setResult('딩동댕');
+    setWord(value);
+    setValue('');
+  }
+
+  const wrongAnswer = () => {
+    setResult('땡');
+  }
+
+  const wordRelayCheck = (e) => {
+    e.preventDefault();
+    word.slice(-1) === value.slice(0, 1) ? answer() : wrongAnswer();
+  }
+
+  const onChange = (e) => {
+    setValue(e.target.value);
+  }
+
   return (
+    <>
     <div>
-    <div>hi webpack</div>
+      <div>{word}</div>
+      <form onSubmit={wordRelayCheck}>
+        <input type='text' value={value} onChange={onChange}/>
+        <button>입력</button>
+      </form>
+      <div>{result}</div>
     </div>
+    </>
   );
 };
 
