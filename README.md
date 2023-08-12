@@ -137,3 +137,14 @@
 ## 5일차
 
 - webpack build 및 끝말잇기 game
+
+## 6일차
+
+### import vs require
+
+> 두개 모두 사용법이나 활용도는 비슷하지만 환경에 따라 쓰는 문법이 달라진다. (babel로 호환가능)
+
+- import
+  > 보통의 module 내보내고 불러오는 문법
+- require
+  > node 전용 module 문법 (Common Js)
