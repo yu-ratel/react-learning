@@ -36,9 +36,10 @@ const NumberBaseball = () => {
     })
   }
 
+  const [computer, setComputer] = useState(randomNumberGenerator());
+  
   const gameCheck = (e) => {
     e.preventDefault();
-    const computer = randomNumberGenerator();
     const user = value.split('').map(Number)
 
     strikeCheck(computer, user);
