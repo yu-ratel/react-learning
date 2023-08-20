@@ -63,7 +63,7 @@ const NumberBaseballGame = () => {
     <>
     <div>숫자 야구 게임 ⚾️</div>
     <form onSubmit={gameCheck}>
-      <input type='number' value={value} onChange={onChange}/>
+      <input type='text' pattern="[0-9]*" maxLength={3} value={value} onChange={onChange}/>
       <button> 입력 </button>
     </form>
     <div>시도 : {tries.length} 번</div>
@@ -78,3 +78,5 @@ const NumberBaseballGame = () => {
 }
 
 export default NumberBaseballGame;
+
+// react의 상태관리는 비동기 <<<<<

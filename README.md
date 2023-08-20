@@ -169,3 +169,24 @@
 > 🌟 push를 사용하는 순간 원본 배열이 변경되기 때문에 불변성이 깨지고 리액트의 상태 감지가 제대로 동작하지 않기 떄문에 배열을 복제하고 변경사항을 반영한 새로운 배열을 만들어야한다
 
 > ex) const origin = [1, 2, 3]; <br> const new = origin.concat(4) <br> || const new = [...origin, 4];
+
+## 8일차
+
+### react 의 성능개선
+
+- shouldcomponentupdate (reRander 방지)
+
+> 리액트의 setState를 호출하는 순간 바뀌지 않는 요소들도 rander 가 되기 때문에 react에서 제공하는 shouldcomponentupdate를 이용하여 조건에 부합할 때 rander되게 해줘야 한다.
+
+- pureComponent (class전용)
+
+> 위의 방법이 조금은 번거롭다면 편하게 쓸 수 있지만
+> 새로운 배열이나 객체를 만들어서 사용해야하고, 배열이나 객체 내부에 넣는 거 보단 단일로 사용하는게 좋다.
+
+- react 의 memo
+
+> 부모컴포넌트가 rander 되었을 때 자식 컴포넌트가 rander 되는것을 막아주는 함수형 컴포넌트에서 사용할 수 있는 pureComponent
+
+> memo를 사용하면 컴포넌트의 이름이 임의로 바뀌기 때문에 displayName = '' 로 원하는 컴포넌트의 이름을 원상태로 돌려주어야한다.
+
+-
