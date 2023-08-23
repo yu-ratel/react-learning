@@ -6,6 +6,8 @@ const ResponCheck = () => {
   const [result, setResult] = useState([]);
   const startTime = useRef(0);
   const endTime = useRef(0);
+  // state는 상태가 바뀌면 rander 되기 때문에 숫자가 변해도 rander에 영향을 끼치고 싶지않은 
+  // 요소라면 useRef를 이용 할 수 있다. 
 
   const onClickScreen = () => {
     if (background === 'waiting') {
