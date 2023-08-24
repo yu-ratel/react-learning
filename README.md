@@ -188,3 +188,16 @@
 > 부모컴포넌트가 rander 되었을 때 자식 컴포넌트가 rander 되는것을 막아주는 함수형 컴포넌트에서 사용할 수 있는 pureComponent
 
 > memo를 사용하면 컴포넌트의 이름이 임의로 바뀌기 때문에 displayName = '' 로 원하는 컴포넌트의 이름을 원상태로 돌려주어야한다.
+
+## 9일차
+
+### react life cycling
+
+#### class
+
+> constructor -> render -> ref -> componentDidMount(대부분 비동기 요청 ) -> (setState / props) 변경시 ->
+> shouldComponentUpdate() -> render -> componentDidUpdate() -> componentWillUnmount()(비동기 요청 정리, 보통 자식컴포넌트가 사라지기전에 메모리 누수를 막기 위해 사용) -> 소멸
+
+#### hooks
+
+> hooks에는 life cycling이 없다.
