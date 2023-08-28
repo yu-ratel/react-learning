@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { COORDS, SCORE } from './Constant';
 
 const RSP = () => {
   const [computer, setComputer] = useState(COORDS.바위);
   const [text, setText] = useState('');
   const [score, setScore] = useState(0);
+  const interval = useRef();
+
+  useEffect(() => {
+    interval.current = setInterval(displayChange, 100);
+    return () => {
+      clearInterval(interval.current);
+    }
+  }, [computer]);
 
   const computerChoice = () => {
     return Object.entries(COORDS).find((v) => {
       return v[1] === computer;
     })[0];
   };
-
+// object에서 vaule 로 key값 찾는 방법 
   const displayChange = () => {
-    setTimeout(() => {
       if (computer === COORDS.바위) {
         setComputer(COORDS.가위);
       }
@@ -23,10 +30,11 @@ const RSP = () => {
       if (computer === COORDS.보) {
         setComputer(COORDS.바위);
       }
-    }, 1000)
   };
 
   const onClickBtn = (choice) => {
+    clearInterval(interval.current);
+
     const myScroe = SCORE[choice];
     const computerScroe = SCORE[computerChoice()];
     const diff = myScroe - computerScroe;
@@ -42,6 +50,10 @@ const RSP = () => {
       setText('졌습니다 !');
       setScore((prevScore) => prevScore - 1);
     }
+    
+    setTimeout(() => {
+      interval.current = setInterval(displayChange, 100);
+    }, 1000);
   }
 
   return (
@@ -55,7 +67,6 @@ const RSP = () => {
         ex) {onClickBtn('바위')} X {() =>onClickBtn('바위')} O*/} 
     <div>{text}</div>
     <div>현재 점수: {score}점</div>
-    {displayChange()}
     </>
   )
 }
