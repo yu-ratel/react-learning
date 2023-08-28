@@ -1,18 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { COORDS, SCORE } from './Constant';
+import useInterval from './useInterval';
 
 const RSP = () => {
   const [computer, setComputer] = useState(COORDS.바위);
   const [text, setText] = useState('');
   const [score, setScore] = useState(0);
-  const interval = useRef();
-
-  useEffect(() => {
-    interval.current = setInterval(displayChange, 100);
-    return () => {
-      clearInterval(interval.current);
-    }
-  }, [computer]);
+  const [isRunning, setIsRunning] = useState(true);
 
   const computerChoice = () => {
     return Object.entries(COORDS).find((v) => {
@@ -32,28 +26,32 @@ const RSP = () => {
       }
   };
 
+  useInterval(displayChange, isRunning ? 100 : null);
+
   const onClickBtn = (choice) => {
-    clearInterval(interval.current);
+    setIsRunning(false);
 
     const myScroe = SCORE[choice];
     const computerScroe = SCORE[computerChoice()];
     const diff = myScroe - computerScroe;
-    
-    if (diff === 0) {
-      setText('비겼습니다 !');
+    if (isRunning) {
+      setIsRunning(false);
+      if (diff === 0) {
+        setText('비겼습니다 !');
+      }
+      if ([-1, 2].includes(diff)) {
+        setText('이겼습니다 !');
+        setScore((prevScore) => prevScore + 1);
+      }
+      if ([1, -2].includes(diff)) {
+        setText('졌습니다 !');
+        setScore((prevScore) => prevScore - 1);
+      }
+      
+      setTimeout(() => {
+        setIsRunning(true);
+      }, 1000);
     }
-    if ([-1, 2].includes(diff)) {
-      setText('이겼습니다 !');
-      setScore((prevScore) => prevScore + 1);
-    }
-    if ([1, -2].includes(diff)) {
-      setText('졌습니다 !');
-      setScore((prevScore) => prevScore - 1);
-    }
-    
-    setTimeout(() => {
-      interval.current = setInterval(displayChange, 100);
-    }, 1000);
   }
 
   return (
