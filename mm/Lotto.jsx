@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Lotto = () => {
+  const [ball, setBall] = useState('yellow');
+  const [number, setNumber] = useState([]);
+
+  const numberList = () => {
+    const randomNumber =  Math.ceil(Math.random()* 45);
+  }
+
   return (
     <>
-    <div>Lotto</div>
+    <div id="numberBall" className={ball}>{number}</div>
     </>
   )
 }

@@ -204,3 +204,11 @@
 
 > 하지만 useEffect로 componentDidMount, shouldComponentUpdate, componentWillUnmount 의 역할을
 > 비슷하게 수행할 수 있다. class 라이프사이클이 모든 state를 동시에 담당한다면 useEffect 는 state 하나하나를 담당하는게 일반적이다.
+
+## 10일차
+
+### 오늘의 삽질
+
+- import 오류
+  > webpack Sever가 처음에는 새로고침을 해주고 그 다음부턴 파일을 인식을 못해서 리로딩이 안되길래
+  > 여러가지를 건드려보았지만 import한 파일 경로가 문제였다.. 오타확인 필수..
