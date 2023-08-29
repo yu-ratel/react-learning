@@ -201,3 +201,6 @@
 #### hooks
 
 > hooks에는 life cycling이 없다.
+
+> 하지만 useEffect로 componentDidMount, shouldComponentUpdate, componentWillUnmount 의 역할을
+> 비슷하게 수행할 수 있다. class 라이프사이클이 모든 state를 동시에 담당한다면 useEffect 는 state 하나하나를 담당하는게 일반적이다.
