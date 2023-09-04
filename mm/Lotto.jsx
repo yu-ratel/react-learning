@@ -36,6 +36,8 @@ const Lotto = () => {
     setTimeout(() => {
       SetReset(false);
     })
+    // setReset이 한번 재실행할 때 true가 되면서 그 다음부턴 useEffect의 의존성인 reset이 바뀌지않기 때문에 
+    // 위의것들을 다 초기화 한다음 setTimeout으로 reset 초기화
   }
 
 
