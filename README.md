@@ -212,3 +212,21 @@
 - import 오류
   > webpack Sever가 처음에는 새로고침을 해주고 그 다음부턴 파일을 인식을 못해서 리로딩이 안되길래
   > 여러가지를 건드려보았지만 import한 파일 경로가 문제였다.. 오타확인 필수..
+
+### useEffect, useMemo, useCallback
+
+#### 공통점
+
+> 두번째 인자에서 컨트롤할 수 있다
+
+> ex) useEffect(() => {}, []) 두번째 인자에 들어간 []은 의존성으로
+> 요소가 들어간다면 그 요소가 변경 될 때 마다 실행된다 빈배열을 넣는다면 처음실행되고 다시 실행되지않는다.
+
+- useEffect
+
+  > class의 componentDidMount, shouldComponentUpdate 등 라이프사이클의 역할을 대신해준다.
+
+- useMemo, useCallback
+  > 두개 다 memoization 을 하는 목적으로 불필요한 값변경과 함수변경을 막아준다.
+  > useMemo 는 값을 저장하고 useCallback은 함수를 저장한다.
+  > 바뀌지 않는 자식 컴포넌트등 리액트는 전체 함수를 실행시키기 때문에 불필요한 리렌더링이 될 때가 많은데 그것들을 유용하게 막아준다.
