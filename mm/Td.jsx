@@ -1,5 +1,5 @@
 import React from 'react';
-import { CLICK_TD_TATA, SET_TURN } from './TicTacToe';
+import { CLICK_TD_TATA } from './TicTacToe';
 
 const Td = ({ rowIndex, tdIndex, tdData, dispatch }) => {
   const onClickTd = () => {
@@ -9,7 +9,6 @@ const Td = ({ rowIndex, tdIndex, tdData, dispatch }) => {
     }
 
     dispatch({ type: CLICK_TD_TATA, row: rowIndex, td: tdIndex });
-    dispatch({ type: SET_TURN });
   }
 
   return (

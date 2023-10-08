@@ -7,11 +7,14 @@ const initialState = {
   tableData: [
     ['', '', ''], ['', '', ''], ['', '', ''], 
   ],
+  recentTd : [-1, -1],
+  // 최근 데이터의 좌표 확인
 };
 
 export const SET_WINNER = 'SET_WINNER';
 export const SET_TURN = 'SET_TURN';
 export const CLICK_TD_TATA = 'CLICK_TD_TATA';
+export const RESET_GAME = 'RESET_GAME';
 // action이 중복되거나 누락되어 예기치 못한 상황이 생기는걸 막기 위하여 상수로 빼두어서 사용하는게 좋다.
 
 const reducer = (state, action) => {
@@ -29,7 +32,7 @@ const reducer = (state, action) => {
       newTableData[action.row] = [...newTableData[action.row]];
       newTableData[action.row][action.td] = state.turn;
       return {
-        ...state, tableData : newTableData,
+        ...state, tableData : newTableData, recentTd: [action.row, action.td],
       }
     };
     
@@ -39,6 +42,12 @@ const reducer = (state, action) => {
         ...state, turn: state.turn === 'O' ? 'X' : 'O',
       }
     };
+
+    case RESET_GAME: {
+      return {
+        ...state, turn: 'O', tableData: [['', '', ''], ['', '', ''], ['', '', '']], recentTd: [-1, -1],
+      }
+    }
     default:
       return state;
   };
@@ -46,11 +55,48 @@ const reducer = (state, action) => {
 
 const TicTacToe = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { winner, turn, tableData } = state;
-  
+  const { winner, turn, tableData, recentTd } = state;
+
   useEffect(() => {
+    const [row, td] = recentTd;
+    if (row < 0) return 
+    let win = false;
+
+    if (tableData[row][0] === turn && tableData[row][1] === turn && tableData[row][2]) {
+      win = true; 
+    }
+    if (tableData[0][td] === turn && tableData[1][td] === turn && tableData[2][td]) {
+      win = true; 
+    }
+    if (tableData[0][0] === turn && tableData[1][1] === turn && tableData[2][2]) {
+      win = true; 
+    }
+    if (tableData[0][2] === turn && tableData[1][1] === turn && tableData[2][0]) {
+      win = true; 
+    }
+
+    if (win) {
+      dispatch({ type: SET_WINNER, winner: turn});
+      dispatch({ type: RESET_GAME });
+      return;
+    }
+
+    let draw = true;
+    tableData.forEach((row) => {
+      row.forEach((td) => {
+        if (!td) draw = false;
+      });
+    });
+
+    if (draw) {
+      dispatch({ type: SET_WINNER, winner: turn});
+      dispatch({ type: RESET_GAME });
+      return;
+    }
+
     dispatch({ type: SET_TURN });
-  },[])
+
+  }, [recentTd]);
   return (
     <>
     <Table dispatch={dispatch} tableData={tableData} />
