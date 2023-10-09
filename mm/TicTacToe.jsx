@@ -62,16 +62,16 @@ const TicTacToe = () => {
     if (row < 0) return 
     let win = false;
 
-    if (tableData[row][0] === turn && tableData[row][1] === turn && tableData[row][2]) {
+    if (tableData[row][0] === turn && tableData[row][1] === turn && tableData[row][2] === turn) {
       win = true; 
     }
-    if (tableData[0][td] === turn && tableData[1][td] === turn && tableData[2][td]) {
+    if (tableData[0][td] === turn && tableData[1][td] === turn && tableData[2][td] === turn) {
       win = true; 
     }
-    if (tableData[0][0] === turn && tableData[1][1] === turn && tableData[2][2]) {
+    if (tableData[0][0] === turn && tableData[1][1] === turn && tableData[2][2] === turn) {
       win = true; 
     }
-    if (tableData[0][2] === turn && tableData[1][1] === turn && tableData[2][0]) {
+    if (tableData[0][2] === turn && tableData[1][1] === turn && tableData[2][0] === turn) {
       win = true; 
     }
 
@@ -89,7 +89,7 @@ const TicTacToe = () => {
     });
 
     if (draw) {
-      dispatch({ type: SET_WINNER, winner: turn});
+      dispatch({ type: SET_WINNER, winner: ''});
       dispatch({ type: RESET_GAME });
       return;
     }
@@ -97,10 +97,17 @@ const TicTacToe = () => {
     dispatch({ type: SET_TURN });
 
   }, [recentTd]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch({ type: SET_WINNER, winner: ''})
+    }, 1000)
+  }, [winner]);
+
   return (
     <>
     <Table dispatch={dispatch} tableData={tableData} />
-    <div>{winner}님 의 승리</div>
+    {winner && <div>{winner}님 의 승리</div>}
     </>
   )
 }
